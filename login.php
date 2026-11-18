@@ -72,11 +72,23 @@ $csrfToken = generateCsrfToken();
 
     <link rel="stylesheet" href="assets/css/style.css">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            background: #F4F6F8;
+            background: #F3F6FA;
             color: #263445;
             min-height: 100vh;
+            font-family: 'Inter', sans-serif;
         }
 
         .login-wrapper {
@@ -85,106 +97,224 @@ $csrfToken = generateCsrfToken();
             align-items: center;
             justify-content: center;
             padding: 35px 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-wrapper::before {
+            content: '';
+            position: fixed;
+            width: 450px;
+            height: 450px;
+            border: 1px solid rgba(53, 191, 234, 0.12);
+            border-radius: 50%;
+            top: -180px;
+            right: -150px;
+            pointer-events: none;
+        }
+
+        .login-wrapper::after {
+            content: '';
+            position: fixed;
+            width: 350px;
+            height: 350px;
+            border: 1px solid rgba(0, 191, 166, 0.12);
+            border-radius: 50%;
+            bottom: -150px;
+            left: -100px;
+            pointer-events: none;
         }
 
         .login-card {
             background: #FFFFFF;
-            border: 1px solid #DCE3E8;
-            border-radius: 14px;
-            box-shadow: 0 8px 28px rgba(22, 50, 79, 0.08);
+            border: 1px solid #E1E8F0;
+            border-radius: 18px;
+            box-shadow: 0 18px 50px rgba(16, 29, 50, 0.10);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .login-header {
+            background: linear-gradient(120deg, #101D32, #1B3652);
+            color: #FFFFFF;
+            padding: 34px 30px;
+            text-align: center;
+            position: relative;
             overflow: hidden;
         }
 
-        .login-header {
-            background: linear-gradient(135deg, #16324F, #237C78);
-            color: #FFFFFF;
-            padding: 32px;
-            text-align: center;
+        .login-header::before {
+            content: '';
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border: 1px solid rgba(53, 191, 234, 0.2);
+            border-radius: 50%;
+            top: -100px;
+            right: -45px;
+        }
+
+        .login-header::after {
+            content: '';
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            border: 1px solid rgba(0, 191, 166, 0.2);
+            border-radius: 50%;
+            bottom: -90px;
+            left: -30px;
         }
 
         .brand-name {
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             font-weight: 800;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
+            letter-spacing: -0.7px;
+            margin-bottom: 9px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .brand-accent {
+            color: #35BFEA;
         }
 
         .login-header p {
-            color: #E8F3F1;
+            color: #C5D3E2;
             margin-bottom: 0;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
         }
 
+        .header-label {
+            color: #35BFEA;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Form */
         .login-body {
-            padding: 32px;
+            padding: 34px;
         }
 
         .login-title {
-            color: #16324F;
-            font-weight: 700;
-            margin-bottom: 8px;
+            color: #101D32;
+            font-weight: 800;
+            letter-spacing: -0.6px;
+            margin-bottom: 9px;
         }
 
         .login-description {
-            color: #6B7785;
-            margin-bottom: 25px;
+            color: #718096;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 28px;
         }
 
         .form-label {
             color: #263445;
-            font-weight: 600;
-            margin-bottom: 7px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            margin-bottom: 8px;
         }
 
         .form-control {
-            border: 1px solid #DCE3E8;
-            border-radius: 8px;
-            padding: 11px 13px;
+            background: #FAFCFE;
+            border: 1px solid #DCE5EE;
+            border-radius: 9px;
+            padding: 12px 14px;
             color: #263445;
+            font-size: 0.9rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .form-control::placeholder {
+            color: #9AA7B6;
         }
 
         .form-control:focus {
-            border-color: #237C78;
-            box-shadow: 0 0 0 0.2rem rgba(35, 124, 120, 0.15);
+            background: #FFFFFF;
+            border-color: #35BFEA;
+            color: #263445;
+            box-shadow: 0 0 0 3px rgba(53, 191, 234, 0.13);
         }
 
-        .btn-primary {
-            background: #237C78;
-            border-color: #237C78;
-            padding: 12px;
-            font-weight: 600;
-            border-radius: 8px;
+        /* Button */
+        .btn-login {
+            background: linear-gradient(135deg, #35BFEA, #00BFA6);
+            color: #101D32;
+            border: none;
+            border-radius: 9px;
+            padding: 13px;
+            font-weight: 800;
+            font-size: 0.95rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .btn-primary:hover {
-            background: #1B625F;
-            border-color: #1B625F;
+        .btn-login:hover {
+            background: linear-gradient(135deg, #27ACD7, #00A990);
+            color: #101D32;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 18px rgba(0, 191, 166, 0.18);
         }
 
+        /* Links and alerts */
         .register-link {
-            color: #237C78;
-            font-weight: 600;
+            color: #1689AD;
+            font-weight: 700;
             text-decoration: none;
         }
 
         .register-link:hover {
-            color: #1B625F;
+            color: #00A990;
             text-decoration: underline;
         }
 
+        .alert-success {
+            background: #E5F7F2;
+            border: 1px solid #B9E9D9;
+            border-left: 4px solid #00BFA6;
+            color: #176B5E;
+            border-radius: 9px;
+            font-size: 0.87rem;
+        }
+
+        .alert-danger {
+            background: #FFF0F0;
+            border: 1px solid #F5D0D0;
+            border-left: 4px solid #D9534F;
+            color: #8B3434;
+            border-radius: 9px;
+            font-size: 0.87rem;
+        }
+
+        /* Footer */
         .login-footer {
             text-align: center;
-            padding: 0 25px 25px;
-            color: #6B7785;
-            font-size: 0.85rem;
+            padding: 0 25px 26px;
+            color: #8491A3;
+            font-size: 0.78rem;
+            line-height: 1.6;
         }
 
         @media (max-width: 576px) {
             .login-body {
-                padding: 25px 20px;
+                padding: 27px 21px;
             }
 
             .login-header {
-                padding: 25px 20px;
+                padding: 29px 20px;
+            }
+
+            .login-title {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -201,11 +331,22 @@ $csrfToken = generateCsrfToken();
 
                 <div class="login-card">
 
+                    <!-- Header -->
                     <div class="login-header">
-                        <div class="brand-name">LocalFix</div>
+
+                        <div class="header-label">
+                            Civic Technology Platform
+                        </div>
+
+                        <div class="brand-name">
+                            Local<span class="brand-accent">Fix</span>
+                        </div>
+
                         <p>Municipal Fault Reporting System</p>
+
                     </div>
 
+                    <!-- Login form -->
                     <div class="login-body">
 
                         <h2 class="login-title text-center">
@@ -273,7 +414,7 @@ $csrfToken = generateCsrfToken();
                                 >
                             </div>
 
-                            <button type="submit" class="btn btn-primary w-100">
+                            <button type="submit" class="btn btn-login w-100">
                                 Sign In
                             </button>
 
@@ -288,8 +429,11 @@ $csrfToken = generateCsrfToken();
 
                     </div>
 
+                    <!-- Footer -->
                     <div class="login-footer">
-                        LocalFix &copy; <?= date('Y') ?>. All rights reserved.
+                        LocalFix &copy; <?= date('Y') ?>.
+                        Developed as an academic project at
+                        Richfield Graduate Institute of Technology.
                     </div>
 
                 </div>
