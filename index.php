@@ -1,3 +1,4 @@
+
 <?php
 
 require_once __DIR__ . '/includes/auth.php';
@@ -34,12 +35,8 @@ if ($isLoggedIn) {
     <link rel="stylesheet" href="assets/css/style.css">
 
     <style>
-        body {
-            background-color: #f4f6f9;
-        }
-
         .hero {
-            background: linear-gradient(135deg, #173d73, #2457a6);
+            background: linear-gradient(135deg, #16324F, #237C78);
             color: white;
             padding: 100px 0;
         }
@@ -47,27 +44,23 @@ if ($isLoggedIn) {
         .hero h1 {
             font-size: 3rem;
             font-weight: 700;
+            color: white;
         }
 
         .hero p {
             font-size: 1.15rem;
-            color: #e5edf8;
+            color: #E8F3F1;
             max-width: 650px;
         }
 
         .section-padding {
-            padding: 70px 0;
+            padding: 75px 0;
         }
 
         .feature-card {
             height: 100%;
             border: none;
             border-radius: 12px;
-            transition: transform 0.2s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-4px);
         }
 
         .feature-icon {
@@ -80,23 +73,22 @@ if ($isLoggedIn) {
             border-radius: 10px;
             padding: 22px;
             height: 100%;
-            border: 1px solid #e9ecef;
+            border: 1px solid #DCE3E8;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(22, 50, 79, 0.08);
         }
 
         .cta-section {
-            background-color: #e8eef7;
+            background-color: #E8F3F1;
             padding: 65px 0;
         }
 
-        footer {
-            background-color: #173d73;
-            color: white;
-            padding: 25px 0;
-        }
-
-        footer p {
-            margin-bottom: 0;
-            color: #dce6f3;
+        .category-card h5 {
+            margin-bottom: 10px;
         }
 
         @media (max-width: 768px) {
@@ -113,7 +105,7 @@ if ($isLoggedIn) {
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
 
         <a class="navbar-brand fw-bold" href="index.php">
@@ -172,14 +164,10 @@ if ($isLoggedIn) {
 
 <section class="hero">
     <div class="container">
-
         <div class="row align-items-center">
-
             <div class="col-lg-8">
 
-                <h1>
-                    Making Municipal Fault Reporting Simpler
-                </h1>
+                <h1>Making Municipal Fault Reporting Simpler</h1>
 
                 <p class="mt-4">
                     LocalFix provides a central platform where residents
@@ -198,13 +186,11 @@ if ($isLoggedIn) {
 
                     <?php else: ?>
 
-                        <a href="register.php"
-                           class="btn btn-light btn-lg">
+                        <a href="register.php" class="btn btn-light btn-lg">
                             Get Started
                         </a>
 
-                        <a href="login.php"
-                           class="btn btn-outline-light btn-lg">
+                        <a href="login.php" class="btn btn-outline-light btn-lg">
                             Login
                         </a>
 
@@ -213,24 +199,18 @@ if ($isLoggedIn) {
                 </div>
 
             </div>
-
         </div>
-
     </div>
 </section>
 
 <section class="section-padding" id="how-it-works">
-
     <div class="container">
 
         <div class="text-center mb-5">
-
             <h2 class="fw-bold">How LocalFix Works</h2>
-
             <p class="text-muted">
                 A straightforward process for reporting and tracking faults.
             </p>
-
         </div>
 
         <div class="row g-4">
@@ -238,17 +218,13 @@ if ($isLoggedIn) {
             <div class="col-md-4">
                 <div class="card feature-card shadow-sm">
                     <div class="card-body p-4">
-
                         <div class="feature-icon">📝</div>
-
                         <h5 class="fw-bold">1. Submit a Report</h5>
-
                         <p class="text-muted mb-0">
                             Register and submit a municipal fault by
                             selecting a category, providing its location
                             and describing the problem.
                         </p>
-
                     </div>
                 </div>
             </div>
@@ -256,17 +232,13 @@ if ($isLoggedIn) {
             <div class="col-md-4">
                 <div class="card feature-card shadow-sm">
                     <div class="card-body p-4">
-
                         <div class="feature-icon">🔖</div>
-
                         <h5 class="fw-bold">2. Receive a Reference</h5>
-
                         <p class="text-muted mb-0">
                             Each submitted report receives a unique
                             reference number that residents can use
                             to identify and track it.
                         </p>
-
                     </div>
                 </div>
             </div>
@@ -274,39 +246,28 @@ if ($isLoggedIn) {
             <div class="col-md-4">
                 <div class="card feature-card shadow-sm">
                     <div class="card-body p-4">
-
                         <div class="feature-icon">📊</div>
-
                         <h5 class="fw-bold">3. Track Progress</h5>
-
                         <p class="text-muted mb-0">
                             Residents can view their reports and check
                             the latest status updates through their
                             LocalFix account.
                         </p>
-
                     </div>
-                </div>
             </div>
-
         </div>
 
     </div>
-
 </section>
 
 <section class="section-padding bg-white" id="fault-categories">
-
     <div class="container">
 
         <div class="text-center mb-5">
-
             <h2 class="fw-bold">What Can You Report?</h2>
-
             <p class="text-muted">
                 LocalFix supports several categories of municipal faults.
             </p>
-
         </div>
 
         <div class="row g-3">
@@ -314,65 +275,51 @@ if ($isLoggedIn) {
             <div class="col-6 col-md-4">
                 <div class="category-card">
                     <h5>Potholes</h5>
-                    <p class="text-muted mb-0">
-                        Damaged roads and potholes.
-                    </p>
+                    <p class="text-muted mb-0">Damaged roads and potholes.</p>
                 </div>
             </div>
 
             <div class="col-6 col-md-4">
                 <div class="category-card">
                     <h5>Streetlights</h5>
-                    <p class="text-muted mb-0">
-                        Broken or faulty streetlights.
-                    </p>
+                    <p class="text-muted mb-0">Broken or faulty streetlights.</p>
                 </div>
             </div>
 
             <div class="col-6 col-md-4">
                 <div class="category-card">
                     <h5>Water Leaks</h5>
-                    <p class="text-muted mb-0">
-                        Water leaks and burst pipes.
-                    </p>
+                    <p class="text-muted mb-0">Water leaks and burst pipes.</p>
                 </div>
             </div>
 
             <div class="col-6 col-md-4">
                 <div class="category-card">
                     <h5>Blocked Drains</h5>
-                    <p class="text-muted mb-0">
-                        Blocked or damaged drainage systems.
-                    </p>
+                    <p class="text-muted mb-0">Blocked or damaged drainage systems.</p>
                 </div>
             </div>
 
             <div class="col-6 col-md-4">
                 <div class="category-card">
                     <h5>Illegal Dumping</h5>
-                    <p class="text-muted mb-0">
-                        Unauthorised waste disposal.
-                    </p>
+                    <p class="text-muted mb-0">Unauthorised waste disposal.</p>
                 </div>
             </div>
 
             <div class="col-6 col-md-4">
                 <div class="category-card">
                     <h5>Traffic Lights</h5>
-                    <p class="text-muted mb-0">
-                        Faulty or damaged traffic lights.
-                    </p>
+                    <p class="text-muted mb-0">Faulty or damaged traffic lights.</p>
                 </div>
             </div>
 
         </div>
 
     </div>
-
 </section>
 
 <section class="cta-section">
-
     <div class="container text-center">
 
         <h2 class="fw-bold">Help Make Your Community Better</h2>
@@ -398,14 +345,12 @@ if ($isLoggedIn) {
         <?php endif; ?>
 
     </div>
-
 </section>
 
 <footer>
-
     <div class="container text-center">
 
-        <h5 class="fw-bold">LocalFix</h5>
+        <h5 class="fw-bold text-white">LocalFix</h5>
 
         <p>
             Web-Based Municipal Fault Reporting and Service Request
@@ -417,7 +362,6 @@ if ($isLoggedIn) {
         </p>
 
     </div>
-
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -1,20 +1,276 @@
 
-body {
-    background-color: #f4f6f9;
-    font-family: Arial, sans-serif;
-    color: #212529;
+/* =========================
+   LocalFix Design System
+   Slate & Teal
+========================= */
+
+:root {
+    --lf-navy: #16324F;
+    --lf-teal: #237C78;
+    --lf-teal-dark: #1B625F;
+    --lf-teal-light: #E8F3F1;
+    --lf-amber: #D99A36;
+    --lf-background: #F4F6F8;
+    --lf-white: #FFFFFF;
+    --lf-text: #263445;
+    --lf-muted: #6B7785;
+    --lf-border: #DCE3E8;
 }
 
-.card {
-    border-radius: 12px;
+/* =========================
+   General Layout
+========================= */
+
+body {
+    background-color: var(--lf-background);
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--lf-text);
+    min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--lf-navy);
+    font-weight: 600;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    max-width: 1140px;
+}
+
+/* =========================
+   Navigation
+========================= */
+
+.navbar {
+    background-color: var(--lf-navy) !important;
+    padding: 14px 0;
+}
+
+.navbar-brand {
+    color: var(--lf-white) !important;
+    font-size: 1.35rem;
+    letter-spacing: 0.3px;
+}
+
+.nav-link {
+    color: #DCE7F0 !important;
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+    color: var(--lf-white) !important;
+}
+
+.navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+/* =========================
+   Buttons
+========================= */
+
+.btn {
+    border-radius: 8px;
+    padding: 9px 18px;
+    font-weight: 500;
+    transition: all 0.2s ease;
 }
 
 .btn-primary {
-    background-color: #2457a6;
-    border-color: #2457a6;
+    background-color: var(--lf-teal) !important;
+    border-color: var(--lf-teal) !important;
+    color: var(--lf-white) !important;
 }
 
-.btn-primary:hover {
-    background-color: #19447f;
-    border-color: #19447f;
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--lf-teal-dark) !important;
+    border-color: var(--lf-teal-dark) !important;
+}
+
+.btn-outline-primary {
+    color: var(--lf-teal) !important;
+    border-color: var(--lf-teal) !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--lf-teal) !important;
+    color: var(--lf-white) !important;
+}
+
+.btn-light {
+    background-color: var(--lf-white);
+    border-color: var(--lf-border);
+    color: var(--lf-navy);
+}
+
+.btn-light:hover {
+    background-color: var(--lf-teal-light);
+    border-color: var(--lf-teal-light);
+}
+
+.btn-outline-light {
+    border-color: rgba(255, 255, 255, 0.7);
+    color: var(--lf-white);
+}
+
+.btn-outline-light:hover {
+    background-color: var(--lf-white);
+    color: var(--lf-navy);
+}
+
+/* =========================
+   Cards
+========================= */
+
+.card {
+    background-color: var(--lf-white);
+    border-radius: 12px;
+    border: 1px solid var(--lf-border);
+    transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+    box-shadow: 0 6px 18px rgba(22, 50, 79, 0.07);
+}
+
+.card-body {
+    color: var(--lf-text);
+}
+
+/* =========================
+   Forms
+========================= */
+
+.form-label {
+    color: var(--lf-navy);
+    font-weight: 500;
+}
+
+.form-control,
+.form-select {
+    border: 1px solid var(--lf-border);
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--lf-teal);
+    box-shadow: 0 0 0 0.2rem rgba(35, 124, 120, 0.15);
+}
+
+/* =========================
+   Status Badges
+========================= */
+
+.badge.bg-primary {
+    background-color: var(--lf-teal) !important;
+}
+
+.badge.bg-success {
+    background-color: #2F855A !important;
+}
+
+.badge.bg-warning {
+    background-color: var(--lf-amber) !important;
+}
+
+.badge.bg-secondary {
+    background-color: #718096 !important;
+}
+
+/* =========================
+   Tables
+========================= */
+
+.table {
+    color: var(--lf-text);
+}
+
+.table thead th {
+    background-color: var(--lf-navy);
+    color: var(--lf-white);
+    border: none;
+}
+
+.table tbody tr:hover {
+    background-color: var(--lf-teal-light);
+}
+
+/* =========================
+   Alerts
+========================= */
+
+.alert {
+    border-radius: 10px;
+    border: none;
+}
+
+.alert-success {
+    background-color: #E6F4EC;
+    color: #246B45;
+}
+
+.alert-danger {
+    background-color: #FBEAEA;
+    color: #963D3D;
+}
+
+/* =========================
+   Utility Styles
+========================= */
+
+.text-muted {
+    color: var(--lf-muted) !important;
+}
+
+.bg-primary {
+    background-color: var(--lf-navy) !important;
+}
+
+.border-top {
+    border-color: var(--lf-border) !important;
+}
+
+/* =========================
+   Footer
+========================= */
+
+footer {
+    background-color: var(--lf-navy);
+    color: var(--lf-white);
+    padding: 25px 0;
+}
+
+footer p {
+    color: #DCE7F0;
+}
+
+/* =========================
+   Responsive Adjustments
+========================= */
+
+@media (max-width: 768px) {
+
+    .container {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .btn {
+        padding: 8px 14px;
+    }
+
+    h1 {
+        font-size: 1.9rem;
+    }
+
+    h2 {
+        font-size: 1.55rem;
+    }
 }

@@ -84,29 +84,151 @@ $csrfToken = generateCsrfToken();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Submit Fault | LocalFix</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <style>
+        .report-header {
+            background: linear-gradient(135deg, #16324F, #237C78);
+            color: white;
+            border-radius: 16px;
+            padding: 30px;
+        }
+
+        .report-header h2 {
+            color: white;
+            font-weight: 700;
+        }
+
+        .report-header p {
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 0;
+        }
+
+        .report-card {
+            border: none;
+            border-radius: 16px;
+            background: #ffffff;
+            box-shadow: 0 5px 20px rgba(22, 50, 79, 0.07);
+        }
+
+        .report-card .card-body {
+            padding: 32px;
+        }
+
+        .report-card .form-label {
+            color: #16324F;
+            font-weight: 600;
+        }
+
+        .report-card .form-control,
+        .report-card .form-select {
+            padding: 12px 14px;
+            border: 1px solid #DCE3E8;
+            border-radius: 9px;
+        }
+
+        .report-card .form-control:focus,
+        .report-card .form-select:focus {
+            border-color: #237C78;
+            box-shadow: 0 0 0 0.2rem rgba(35, 124, 120, 0.15);
+        }
+
+        .report-card textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .form-help {
+            color: #6B7785;
+            font-size: 0.85rem;
+        }
+
+        .report-submit {
+            padding: 13px;
+            font-weight: 600;
+            border-radius: 9px;
+        }
+
+        .back-link {
+            color: #237C78;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            color: #1B625F;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 576px) {
+            .report-header {
+                padding: 24px;
+            }
+
+            .report-card .card-body {
+                padding: 22px;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-<div class="container py-5">
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+
+        <a class="navbar-brand fw-bold" href="dashboard.php">
+            LocalFix
+        </a>
+
+        <a href="dashboard.php" class="btn btn-light btn-sm">
+            Dashboard
+        </a>
+
+    </div>
+</nav>
+
+<main class="container py-5">
 
     <div class="row justify-content-center">
-        <div class="col-lg-7">
 
-            <div class="card shadow-sm border-0">
-                <div class="card-body p-4">
+        <div class="col-lg-8 col-xl-7">
 
-                    <h2 class="mb-2">Report a Municipal Fault</h2>
+            <!-- Header -->
+            <div class="report-header mb-4">
+                <h2>Report a Municipal Fault</h2>
+
+                <p class="mt-2">
+                    Help improve your community by reporting municipal problems.
+                    Provide accurate information so the fault can be identified.
+                </p>
+            </div>
+
+            <!-- Form card -->
+            <div class="card report-card">
+                <div class="card-body">
+
+                    <h4 class="mb-2">Fault Details</h4>
 
                     <p class="text-muted mb-4">
-                        Provide the details of the fault you would like to report.
+                        Complete all fields below to submit your report.
                     </p>
 
+                    <!-- Validation errors -->
                     <?php if (!empty($errors)): ?>
                         <div class="alert alert-danger">
-                            <ul class="mb-0">
+                            <strong>Please correct the following:</strong>
+
+                            <ul class="mb-0 mt-2">
                                 <?php foreach ($errors as $error): ?>
                                     <li><?= htmlspecialchars($error) ?></li>
                                 <?php endforeach; ?>
@@ -116,56 +238,100 @@ $csrfToken = generateCsrfToken();
 
                     <form method="POST" action="submit_report.php">
 
-                        <input type="hidden" name="csrf_token"
-                               value="<?= htmlspecialchars($csrfToken) ?>">
+                        <input
+                            type="hidden"
+                            name="csrf_token"
+                            value="<?= htmlspecialchars($csrfToken) ?>"
+                        >
 
-                        <div class="mb-3">
-                            <label class="form-label">Fault Category</label>
+                        <!-- Category -->
+                        <div class="mb-4">
+                            <label for="category_id" class="form-label">
+                                Fault Category
+                            </label>
 
-                            <select name="category_id" class="form-select" required>
+                            <select
+                                name="category_id"
+                                id="category_id"
+                                class="form-select"
+                                required
+                            >
                                 <option value="">Select a category</option>
 
                                 <?php foreach ($categories as $category): ?>
                                     <option
                                         value="<?= htmlspecialchars((string)$category['category_id']) ?>"
-                                        <?= $selectedCategory == $category['category_id'] ? 'selected' : '' ?>>
+                                        <?= $selectedCategory == $category['category_id'] ? 'selected' : '' ?>
+                                    >
                                         <?= htmlspecialchars($category['category_name']) ?>
                                     </option>
                                 <?php endforeach; ?>
 
                             </select>
+
+                            <div class="form-help mt-1">
+                                Select the category that best describes the problem.
+                            </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Fault Location</label>
+                        <!-- Location -->
+                        <div class="mb-4">
+                            <label for="location" class="form-label">
+                                Fault Location
+                            </label>
 
-                            <input type="text" name="location"
-                                   class="form-control"
-                                   maxlength="255"
-                                   value="<?= htmlspecialchars($location) ?>"
-                                   placeholder="Enter the street or area"
-                                   required>
+                            <input
+                                type="text"
+                                name="location"
+                                id="location"
+                                class="form-control"
+                                maxlength="255"
+                                value="<?= htmlspecialchars($location) ?>"
+                                placeholder="e.g. Main Road, near the shopping centre"
+                                required
+                            >
+
+                            <div class="form-help mt-1">
+                                Include the street name, suburb, or a nearby landmark.
+                            </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Fault Description</label>
+                        <!-- Description -->
+                        <div class="mb-4">
+                            <label for="description" class="form-label">
+                                Fault Description
+                            </label>
 
-                            <textarea name="description"
-                                      class="form-control"
-                                      rows="5"
-                                      maxlength="5000"
-                                      placeholder="Describe the problem..."
-                                      required><?= htmlspecialchars($description) ?></textarea>
+                            <textarea
+                                name="description"
+                                id="description"
+                                class="form-control"
+                                rows="6"
+                                maxlength="5000"
+                                placeholder="Describe the fault, what you noticed, and any relevant details..."
+                                required
+                            ><?= htmlspecialchars($description) ?></textarea>
+
+                            <div class="form-help mt-1">
+                                Provide as much detail as possible to help identify the issue.
+                            </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary w-100">
+                        <!-- Submit -->
+                        <button
+                            type="submit"
+                            class="btn btn-primary w-100 report-submit"
+                        >
                             Submit Fault Report
                         </button>
 
                     </form>
 
-                    <div class="text-center mt-3">
-                        <a href="dashboard.php">Back to Dashboard</a>
+                    <!-- Back -->
+                    <div class="text-center mt-4">
+                        <a href="dashboard.php" class="back-link">
+                            &larr; Back to Dashboard
+                        </a>
                     </div>
 
                 </div>
@@ -174,7 +340,7 @@ $csrfToken = generateCsrfToken();
         </div>
     </div>
 
-</div>
+</main>
 
 </body>
 </html>

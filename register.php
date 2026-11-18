@@ -1,4 +1,3 @@
-
 <?php
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/csrf.php';
@@ -36,14 +35,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($errors)) {
+
         $check = $pdo->prepare(
             'SELECT user_id FROM users WHERE email = ?'
         );
+
         $check->execute([$email]);
 
         if ($check->fetch()) {
             $errors[] = 'An account with this email already exists.';
         } else {
+
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
             $insert = $pdo->prepare(
@@ -72,82 +74,285 @@ $csrfToken = generateCsrfToken();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register | LocalFix</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>Create Account | LocalFix</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <style>
+        body {
+            background: #F4F6F8;
+            color: #263445;
+            min-height: 100vh;
+        }
+
+        .register-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 35px 15px;
+        }
+
+        .register-card {
+            background: #FFFFFF;
+            border: 1px solid #DCE3E8;
+            border-radius: 14px;
+            box-shadow: 0 8px 28px rgba(22, 50, 79, 0.08);
+            overflow: hidden;
+        }
+
+        .register-header {
+            background: linear-gradient(135deg, #16324F, #237C78);
+            color: #FFFFFF;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .brand-name {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .register-header p {
+            color: #E8F3F1;
+            margin-bottom: 0;
+        }
+
+        .register-body {
+            padding: 32px;
+        }
+
+        .register-title {
+            color: #16324F;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .register-description {
+            color: #6B7785;
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            color: #263445;
+            font-weight: 600;
+            margin-bottom: 7px;
+        }
+
+        .form-control {
+            border: 1px solid #DCE3E8;
+            border-radius: 8px;
+            padding: 11px 13px;
+            color: #263445;
+        }
+
+        .form-control:focus {
+            border-color: #237C78;
+            box-shadow: 0 0 0 0.2rem rgba(35, 124, 120, 0.15);
+        }
+
+        .btn-primary {
+            background: #237C78;
+            border-color: #237C78;
+            padding: 12px;
+            font-weight: 600;
+            border-radius: 8px;
+        }
+
+        .btn-primary:hover {
+            background: #1B625F;
+            border-color: #1B625F;
+        }
+
+        .login-link {
+            color: #237C78;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .login-link:hover {
+            color: #1B625F;
+            text-decoration: underline;
+        }
+
+        .form-note {
+            color: #6B7785;
+            font-size: 0.85rem;
+        }
+
+        .register-footer {
+            text-align: center;
+            padding: 0 25px 25px;
+            color: #6B7785;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 576px) {
+            .register-body {
+                padding: 25px 20px;
+            }
+
+            .register-header {
+                padding: 25px 20px;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-5">
-            <div class="card shadow-sm border-0">
-                <div class="card-body p-4">
+<div class="register-wrapper">
 
-                    <h2 class="text-center mb-2">Create an Account</h2>
-                    <p class="text-center text-muted mb-4">
-                        Register with LocalFix to report municipal faults.
-                    </p>
+    <div class="container">
+        <div class="row justify-content-center">
 
-                    <?php if (!empty($errors)): ?>
-                        <div class="alert alert-danger">
-                            <ul class="mb-0">
-                                <?php foreach ($errors as $error): ?>
-                                    <li><?= htmlspecialchars($error) ?></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
-                    <?php endif; ?>
+            <div class="col-md-7 col-lg-5">
 
-                    <form method="POST" action="register.php">
+                <div class="register-card">
 
-                        <input type="hidden" name="csrf_token"
-                               value="<?= htmlspecialchars($csrfToken) ?>">
+                    <div class="register-header">
+                        <div class="brand-name">LocalFix</div>
+                        <p>Municipal Fault Reporting System</p>
+                    </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Full Name</label>
-                            <input type="text" name="full_name"
-                                   class="form-control"
-                                   value="<?= htmlspecialchars($fullName) ?>"
-                                   maxlength="100" required>
-                        </div>
+                    <div class="register-body">
 
-                        <div class="mb-3">
-                            <label class="form-label">Email Address</label>
-                            <input type="email" name="email"
-                                   class="form-control"
-                                   value="<?= htmlspecialchars($email) ?>"
-                                   maxlength="150" required>
-                        </div>
+                        <h2 class="register-title text-center">
+                            Create an Account
+                        </h2>
 
-                        <div class="mb-3">
-                            <label class="form-label">Password</label>
-                            <input type="password" name="password"
-                                   class="form-control"
-                                   minlength="8" required>
-                        </div>
+                        <p class="register-description text-center">
+                            Join LocalFix to report municipal faults and track their progress.
+                        </p>
 
-                        <div class="mb-3">
-                            <label class="form-label">Confirm Password</label>
-                            <input type="password" name="confirm_password"
-                                   class="form-control"
-                                   minlength="8" required>
-                        </div>
+                        <?php if (!empty($errors)): ?>
 
-                        <button type="submit" class="btn btn-primary w-100">
-                            Register
-                        </button>
-                    </form>
+                            <div class="alert alert-danger">
+                                <strong>Registration unsuccessful.</strong>
 
-                    <p class="text-center mt-3 mb-0">
-                        Already have an account?
-                        <a href="login.php">Log in</a>
-                    </p>
+                                <ul class="mb-0 mt-2">
+                                    <?php foreach ($errors as $error): ?>
+                                        <li><?= htmlspecialchars($error) ?></li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
+
+                        <?php endif; ?>
+
+                        <form method="POST" action="register.php">
+
+                            <input
+                                type="hidden"
+                                name="csrf_token"
+                                value="<?= htmlspecialchars($csrfToken) ?>"
+                            >
+
+                            <div class="mb-3">
+                                <label for="full_name" class="form-label">
+                                    Full Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="full_name"
+                                    name="full_name"
+                                    class="form-control"
+                                    placeholder="Enter your full name"
+                                    value="<?= htmlspecialchars($fullName) ?>"
+                                    maxlength="100"
+                                    autocomplete="name"
+                                    required
+                                >
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label">
+                                    Email Address
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    class="form-control"
+                                    placeholder="Enter your email address"
+                                    value="<?= htmlspecialchars($email) ?>"
+                                    maxlength="150"
+                                    autocomplete="email"
+                                    required
+                                >
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label">
+                                    Password
+                                </label>
+
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    class="form-control"
+                                    placeholder="Create a password"
+                                    minlength="8"
+                                    autocomplete="new-password"
+                                    required
+                                >
+
+                                <div class="form-note mt-1">
+                                    Your password must contain at least 8 characters.
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="confirm_password" class="form-label">
+                                    Confirm Password
+                                </label>
+
+                                <input
+                                    type="password"
+                                    id="confirm_password"
+                                    name="confirm_password"
+                                    class="form-control"
+                                    placeholder="Enter your password again"
+                                    minlength="8"
+                                    autocomplete="new-password"
+                                    required
+                                >
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100">
+                                Create Account
+                            </button>
+
+                        </form>
+
+                        <p class="text-center mt-4 mb-0">
+                            Already have an account?
+                            <a href="login.php" class="login-link">Log in</a>
+                        </p>
+
+                    </div>
+
+                    <div class="register-footer">
+                        LocalFix &copy; <?= date('Y') ?>. All rights reserved.
+                    </div>
 
                 </div>
+
             </div>
+
         </div>
     </div>
+
 </div>
 
 </body>
